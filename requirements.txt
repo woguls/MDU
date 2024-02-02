@@ -1,0 +1,6 @@
+PyQt6==6.6.1
+qdarkstyle==3.2.3
+rasterio==1.3.9
+shapely==2.0.2
+QtMDi==1.1.1
+geopandas==0.14.2
