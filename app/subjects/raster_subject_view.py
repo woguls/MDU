@@ -3,6 +3,8 @@ from PyQt6.QtWidgets import QWidget, QGraphicsView, QGraphicsScene, QGraphicsPix
 from PyQt6.QtGui import QPixmap, QImage, QAction
 from PyQt6.QtCore import pyqtSignal
 import qtawesome as qta
+from ui.raster_subject_view.init_window import init_window
+from ui.raster_subject_view.init_toolbar import init_toolbar
 
 
 from .raster_subject import RasterSubject
@@ -12,6 +14,10 @@ class RasterSubjectView(QWidget):
 
     def __init__(self,  raster_subject : RasterSubject):
         super().__init__()
+        self.graphics_view = None
+        self.graphics_scene = None
+        self.layout = None
+        self.toolbar = None 
 
         self.raster_subject = raster_subject
         self.init_ui()
@@ -20,32 +26,15 @@ class RasterSubjectView(QWidget):
         # Set up the main window
         self.setWindowTitle("Image Viewer")
         self.setGeometry(100, 100, 800, 600)
-
-        # Create a QGraphicsView and QGraphicsScene
-        self.graphics_view = QGraphicsView(self)
-        self.graphics_scene = QGraphicsScene(self)
-        self.graphics_view.setScene(self.graphics_scene)
-
-        # Set the QGraphicsView as the central widget
-        layout = QVBoxLayout(self)
-        layout.addWidget(self.graphics_view)
+        init_window(self)
 
         # Create a toolbar
-        toolbar = QToolBar(self)
-        layout.addWidget(toolbar)
-
-        # Add zoom in/out actions to the toolbar
-        zoom_out_icon = qta.icon('ph.magnifying-glass-minus-thin')
-        zoom_in_icon = qta.icon('ph.magnifying-glass-plus-thin')
-        zoom_in_action = QAction(icon=zoom_in_icon,text="zoom in", parent=self)
-        zoom_out_action = QAction(icon=zoom_out_icon, text="zoom out", parent=self)
-        zoom_in_action.triggered.connect(self.zoom_in)
-        zoom_out_action.triggered.connect(self.zoom_out)
-        toolbar.addAction(zoom_in_action)
-        toolbar.addAction(zoom_out_action)
-
+        init_toolbar(self)
         # Initially, load and display the image
         self.update_image()
+
+    def crop(self):
+        pass
 
     def zoom_in(self):
         self.graphics_view.scale(1.2,1.2)
