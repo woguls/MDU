@@ -1,11 +1,11 @@
 # app/subjects/raster_subject_view.py
-from PyQt6.QtWidgets import QWidget, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QVBoxLayout, QToolBar
-from PyQt6.QtGui import QPixmap, QImage, QAction
+from PyQt6.QtWidgets import QWidget,  QGraphicsPixmapItem
+from PyQt6.QtGui import QPixmap, QImage
 from PyQt6.QtCore import pyqtSignal
-import qtawesome as qta
+
 from ui.raster_subject_view.init_window import init_window
 from ui.raster_subject_view.init_toolbar import init_toolbar
-
+from ui.raster_subject_view.crop_toolbar import CroptToolbar
 
 from .raster_subject import RasterSubject
 
@@ -16,9 +16,9 @@ class RasterSubjectView(QWidget):
         super().__init__()
         self.graphics_view = None
         self.graphics_scene = None
-        self.layout = None
-        self.toolbar = None 
 
+        self.toolbar = None 
+        self.crop_toolbar = CroptToolbar(self)
         self.raster_subject = raster_subject
         self.init_ui()
 
@@ -33,8 +33,8 @@ class RasterSubjectView(QWidget):
         # Initially, load and display the image
         self.update_image()
 
-    def crop(self):
-        pass
+    def start_crop(self):
+        self.crop_toolbar.show()
 
     def zoom_in(self):
         self.graphics_view.scale(1.2,1.2)

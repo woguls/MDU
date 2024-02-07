@@ -1,5 +1,5 @@
-from PyQt6.QtWidgets import QWidget, QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QVBoxLayout, QToolBar
-from PyQt6.QtGui import QPixmap, QImage, QAction
+from PyQt6.QtWidgets import QToolBar
+from PyQt6.QtGui import  QAction
 import qtawesome as qta
 
 def init_toolbar(main_window):
@@ -20,7 +20,7 @@ def init_toolbar(main_window):
     # Crop action to the toolbar
     crop_icon = qta.icon('ph.crop-thin')
     crop_action = QAction(icon=crop_icon, text="Set transform", parent=main_window)
-    crop_action.triggered.connect(main_window.crop)
+    crop_action.triggered.connect(main_window.start_crop)
     main_window.toolbar.addAction(crop_action)
 
     return (main_window)
